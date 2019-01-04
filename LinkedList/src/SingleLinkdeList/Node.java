@@ -1,10 +1,12 @@
+package SingleLinkdeList;
+
 /**
  * @Author: cuizhe
  * @Date: 2019/1/1 18:24
  */
 public class Node<T> {
     private T data;
-    private Node next;
+    private Node<T> next;
 
     public Node(T data) {
         this.data = data;

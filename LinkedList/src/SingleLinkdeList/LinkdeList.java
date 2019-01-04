@@ -1,9 +1,23 @@
+package SingleLinkdeList;
+
 /**
  * Created by cuizhe on 2019-01-02.
  */
-public class LinkList<T> {
+public class LinkdeList<T> {
 
-    Node head = null;//链表的头结点
+    private Node head;//链表的头结点
+
+    public LinkdeList() {
+        head = null;
+    }
+
+    public Node getHead() {
+        return head;
+    }
+
+    public void setHead(Node head) {
+        this.head = head;
+    }
 
     /**
      * 头插法：
@@ -217,6 +231,9 @@ public class LinkList<T> {
         }
     }
 
+    /**
+     * 通过递归实现链表的反转
+     */
     public Node reverseListByRecursion(Node node){
         if(node==null||node.getNext()==null){
             return node;
@@ -226,5 +243,4 @@ public class LinkList<T> {
         node.setNext(null);
         return reNode;
     }
-
 }
