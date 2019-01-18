@@ -19,6 +19,33 @@ public class LinkdeList<T> {
         this.head = head;
     }
 
+    private class Node<T> {
+        private T data;
+        private Node<T> next;
+
+        public Node(T data) {
+            this.data = data;
+        }
+
+        public T getData() {
+            return data;
+        }
+
+        public void setData(T data) {
+            this.data = data;
+        }
+
+        public Node getNext() {
+            return next;
+        }
+
+        public void setNext(Node next) {
+            this.next = next;
+        }
+
+    }
+
+
     /**
      * 头插法：
      * 先 new 一个新结点，保存传入的数据；
