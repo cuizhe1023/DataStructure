@@ -98,7 +98,7 @@ public class LinkdeList<T> {
      * @param index 传入的位置
      * @param data  传入的数据
      */
-    public void insertByindex(int index, T data) {
+    public void insertByIndex(int index, T data) {
         if (index < 1 || index > length()) {
             System.out.println("插入位置不合法，插入失败");
             return;
@@ -107,20 +107,23 @@ public class LinkdeList<T> {
             System.out.println("链表为空，插入失败");
             return;
         }
-        Node<T> newNode = new Node<>(data);
+        if (index == 1) {
+            insertHead(data);
+            return;
+        }
+        if (index == length()){
+            insertEnd(data);
+            return;
+        }
         int length = 1;
         Node curNode = head;
+        Node<T> newNode = new Node<>(data);
         while (curNode.getNext() != null) {
             length++;
             if (index == length) {
-                if (index == 1) {
-                    newNode.setNext(head);
-                    head = newNode;
-                    return;
-                }
                 newNode.setNext(curNode.getNext());
                 curNode.setNext(newNode);
-                return;
+                break;
             }
             curNode = curNode.getNext();
         }
@@ -161,7 +164,7 @@ public class LinkdeList<T> {
      *
      * @param index
      */
-    public void deleteByindex(int index) {
+    public void deleteByIndex(int index) {
         if (index<1 || index > length()){
             System.out.println("输入错误,删除失败");
             return;

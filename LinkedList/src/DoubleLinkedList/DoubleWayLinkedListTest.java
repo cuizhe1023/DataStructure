@@ -10,7 +10,14 @@ public class DoubleWayLinkedListTest {
         list.insertEnd(2);
         list.insertHead(1);
         list.insertEnd(3);
+        list.insertEnd(4);
+        list.insertEnd(5);
+        list.insertEnd(6);
+
+        list.printList();
+        list.insertByIndex(4,7);
         list.printList();
         System.out.println(list.length());
+        list.reverseList();
     }
 }
