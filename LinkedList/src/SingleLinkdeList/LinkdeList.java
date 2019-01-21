@@ -7,18 +7,7 @@ public class LinkdeList<T> {
 
     private Node head;//链表的头结点
 
-    public LinkdeList() {
-        head = null;
-    }
-
-    public Node getHead() {
-        return head;
-    }
-
-    public void setHead(Node head) {
-        this.head = head;
-    }
-
+    //链表的结点信息
     private class Node<T> {
         private T data;
         private Node<T> next;
@@ -45,6 +34,25 @@ public class LinkdeList<T> {
 
     }
 
+    public LinkdeList() {
+        head = null;
+    }
+
+    /**
+     * 获取头结点信息
+     * @return 头结点
+     */
+    public Node getHead() {
+        return head;
+    }
+
+    /**
+     * 将该结点设置为头结点
+     * @param head 设置为头结点的结点
+     */
+    public void setHead(Node head) {
+        this.head = head;
+    }
 
     /**
      * 头插法：
@@ -74,7 +82,7 @@ public class LinkdeList<T> {
      */
     public void insertEnd(T data) {
         Node<T> newNode = new Node<>(data);
-        Node<T> temp = head;
+        Node temp = head;
         if (head == null) {
             head = newNode;
         } else {
@@ -88,6 +96,7 @@ public class LinkdeList<T> {
     /**
      * 在指定位置插入数据
      * 先判断指定位置合不合法，是否大于链表长度，是否小于1，以及判断链表是否为空；
+     * 在判断特殊情况，是否在头结点插入，是否在末尾插入
      * 先 new 一个新结点，保存传入的数据；
      * 再设置一个计数器，并遍历链表，在遍历每一个结点之前，计数器+1
      * （计数器代表新结点的位置，在遍历之前+1，是为了保证在插入前能获取上一个结点的信息）；
@@ -183,6 +192,88 @@ public class LinkdeList<T> {
             }
             curNode = curNode.getNext();
         }
+    }
+
+    /**
+     * 修改指定位置的结点的数据
+     *
+     * @param index 指定位置
+     * @param data 修改的数据
+     */
+    public void updateDataByIndex(int index,T data){
+        if (index<1 || index > length()){
+            System.out.println("输入错误,删除失败");
+            return ;
+        }
+        if (head == null) {
+            System.out.println("链表为空，插入失败");
+            return ;
+        }
+        getNodeByIndex(index).setData(data);
+    }
+
+    /**
+     * 获取最后一个结点
+     * @return 返回最后一个结点的结点信息
+     */
+    public Node getEndNode(){
+        if (head == null) {
+            System.out.println("链表为空，插入失败");
+            return null;
+        }
+        Node curNode = head;
+        while (curNode.getNext() != null){
+            curNode = curNode.getNext();
+        }
+        return curNode;
+    }
+
+    /**
+     * 获取指定位置的结点信息
+     * 先判断指定位置合不合法，是否大于链表长度，是否小于1，以及判断链表是否为空；
+     * 在判断特殊情况，是否获取的是第一个结点，是否获取的是第二个结点
+     * 设置一个计数器，并遍历链表，在遍历每一个结点之前，计数器+1
+     * （计数器代表新结点的位置，在遍历之前+1，是为了保证在插入前能获取上一个结点的信息）
+     * 当计数器与传入的位置相同时，返回当前结点的后一个结点的信息
+     *
+     * @param index 指定的位置
+     * @return 获取的结点信息
+     */
+    public Node getNodeByIndex(int index){
+        if (index<1 || index > length()){
+            System.out.println("输入错误,删除失败");
+            return null;
+        }
+        if (head == null) {
+            System.out.println("链表为空，插入失败");
+            return null;
+        }
+        if (index == 1) {
+            return head;
+        }
+        if (index == length()){
+            return getEndNode();
+        }
+        int length = 1;
+        Node curNode = head;
+        while (curNode.getNext() != null) {
+            length++;
+            if (index == length){
+                return curNode.getNext();
+            }
+            curNode = curNode.getNext();
+        }
+        return null;
+    }
+
+    /**
+     * 获取指定位置结点的数据域
+     *
+     * @param index 指定的位置
+     * @return 结点的数据域
+     */
+    public T getDataByIndex(int index){
+        return (T) getNodeByIndex(index).getData();
     }
 
     /**
