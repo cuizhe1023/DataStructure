@@ -1,4 +1,4 @@
-package ArraysQueue;
+package queue.arrays;
 
 /**
  * @Author: cuizhe

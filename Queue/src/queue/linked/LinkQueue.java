@@ -1,4 +1,4 @@
-package LinkedQueue;
+package queue.linked;
 
 /**
  * @Author: cuizhe

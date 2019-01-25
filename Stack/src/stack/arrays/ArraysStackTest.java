@@ -1,4 +1,4 @@
-package ArraysStack;
+package stack.arrays;
 
 /**
  * @Author: cuizhe

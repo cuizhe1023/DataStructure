@@ -1,4 +1,4 @@
-package LinkedStack;
+package stack.linked;
 
 /**
  * @Author: cuizhe
