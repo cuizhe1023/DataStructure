@@ -31,13 +31,13 @@ public class LinkedBinaryTreeTest {
         System.out.println("判断二叉树是否为空：" + binaryTree.isEmpty());
 
         System.out.println("前序遍历：");//1452367
-        binaryTree.preOrderTraverse();
-        System.out.println("中序遍历：");//4513267
-        binaryTree.inOrderTraverse();
-        System.out.println("后序遍历：");//5437621
-        binaryTree.postOrderTraverse();
+        binaryTree.preOrderTraverse(binaryTree.getRoot());
+        System.out.println("\n中序遍历：");//4513267
+        binaryTree.inOrderTraverse(binaryTree.getRoot());
+        System.out.println("\n后序遍历：");//5437621
+        binaryTree.postOrderTraverse(binaryTree.getRoot());
 
-        System.out.println("非递归前序遍历：");
+        System.out.println("\n非递归前序遍历：");
         binaryTree.preOrderByStack();
         System.out.println("非递归中序遍历：");
         binaryTree.inOrderByStack();

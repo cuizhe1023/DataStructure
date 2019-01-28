@@ -42,27 +42,30 @@ public class LinkedBinaryTree<T> implements BinaryTree {
     }
 
     @Override
-    public void preOrderTraverse() {
-        if (root != null){
-            System.out.print(root.data + " ");
-            LinkedBinaryTree leftTree = new LinkedBinaryTree();
-            leftTree.root = root.getLeftChild();
-            leftTree.preOrderTraverse();
-            LinkedBinaryTree rightTree = new LinkedBinaryTree();
-            rightTree.root = root.getRightChild();
-            rightTree.preOrderTraverse();
+    public void preOrderTraverse(TreeNode node) {
+        if (node != null){
+            System.out.print(node.data + " ");
+            preOrderTraverse(node.getLeftChild());
+            preOrderTraverse(node.getRightChild());
         }
-        System.out.println();
     }
 
     @Override
-    public void inOrderTraverse() {
-
+    public void inOrderTraverse(TreeNode node) {
+        if (node != null){
+            preOrderTraverse(node.getLeftChild());
+            System.out.print(node.data + " ");
+            preOrderTraverse(node.getRightChild());
+        }
     }
 
     @Override
-    public void postOrderTraverse() {
-
+    public void postOrderTraverse(TreeNode node) {
+        if (node != null){
+            preOrderTraverse(node.getLeftChild());
+            preOrderTraverse(node.getRightChild());
+            System.out.print(node.data + " ");
+        }
     }
 
     @Override
