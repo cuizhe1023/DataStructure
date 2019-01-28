@@ -42,29 +42,50 @@ public class LinkedBinaryTree<T> implements BinaryTree {
     }
 
     @Override
-    public void preOrderTraverse(TreeNode node) {
-        if (node != null){
-            System.out.print(node.data + " ");
-            preOrderTraverse(node.getLeftChild());
-            preOrderTraverse(node.getRightChild());
+    public void preOrderTraverse() {
+        if (root != null){
+            preOrderTraverse(root);
+            System.out.println();
+        }
+    }
+
+    private void preOrderTraverse(TreeNode treeNode) {
+        if (treeNode != null){
+            System.out.print(treeNode.getData() + " ");
+            preOrderTraverse(treeNode.getLeftChild());
+            preOrderTraverse(treeNode.getRightChild());
         }
     }
 
     @Override
-    public void inOrderTraverse(TreeNode node) {
-        if (node != null){
-            preOrderTraverse(node.getLeftChild());
-            System.out.print(node.data + " ");
-            preOrderTraverse(node.getRightChild());
+    public void inOrderTraverse() {
+        if (root != null){
+            inOrderTraverse(root);
+            System.out.println();
+        }
+    }
+
+    private void inOrderTraverse(TreeNode treeNode) {
+        if (treeNode != null){
+            inOrderTraverse(treeNode.getLeftChild());
+            System.out.print(treeNode.getData() + " ");
+            inOrderTraverse(treeNode.getRightChild());
         }
     }
 
     @Override
-    public void postOrderTraverse(TreeNode node) {
-        if (node != null){
-            preOrderTraverse(node.getLeftChild());
-            preOrderTraverse(node.getRightChild());
-            System.out.print(node.data + " ");
+    public void postOrderTraverse() {
+        if (root != null){
+            postOrderTraverse(root);
+            System.out.println();
+        }
+    }
+
+    private void postOrderTraverse(TreeNode treeNode) {
+        if (treeNode != null){
+            postOrderTraverse(treeNode.getLeftChild());
+            postOrderTraverse(treeNode.getRightChild());
+            System.out.print(treeNode.getData() + " ");
         }
     }
 
