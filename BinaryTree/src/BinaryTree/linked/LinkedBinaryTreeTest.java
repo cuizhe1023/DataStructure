@@ -44,7 +44,7 @@ public class LinkedBinaryTreeTest {
         System.out.println("非递归后序遍历：");
         binaryTree.postOrderByStack();
 
-        System.out.println("层次遍历：");
+        System.out.println("层次遍历：");//1425367
         binaryTree.levelOrderByStack();
     }
 }
