@@ -1,14 +1,17 @@
 package BinaryTree.linked;
 
+import BinaryTree.LinkQueue;
+import BinaryTree.LinkStack;
 import BinaryTree.BinaryTree;
+import BinaryTree.TreeNode;
 
 /**
  * @Author: cuizhe
  * @Date: 2019/1/24 22:43
  */
-public class LinkedBinaryTree<T> implements BinaryTree {
+public class LinkedBinaryTree<T> implements BinaryTree{
 
-    private TreeNode root;//根节点
+    private TreeNode root;//根结点
 
     public TreeNode getRoot() {
         return root;
@@ -92,13 +95,13 @@ public class LinkedBinaryTree<T> implements BinaryTree {
 
     /**
      * 前序非递归遍历：
-     * 1.对于任意节点current，若该节点不为空则访问该节点后再将节点压栈，并将左子树节点置为current，重复此操作，直到current为空。
-     * 2.若左子树为空，栈顶节点出栈，将该节点的右子树置为current
-     * 3.重复1、2步操作，直到current为空且栈内节点为空。
+     * 1.对于任意结点 curNode，若该结点不为空则访问该结点后再将结点压栈，并将左子树结点置为 curNode，重复此操作，直到 curNode 为空。
+     * 2.若左子树为空，栈顶结点出栈，将该结点的右子树置为 curNode
+     * 3.重复1、2步操作，直到 curNode 为空且栈内结点为空。
      */
     @Override
     public void preOrderByStack() {
-        LinkStack<TreeNode> stack = new LinkStack<>();
+        LinkStack<TreeNode> stack = new LinkStack<TreeNode>();
         TreeNode curNode = root;
         while (curNode != null || !stack.isEmpty()){
             while (curNode != null){
@@ -117,13 +120,13 @@ public class LinkedBinaryTree<T> implements BinaryTree {
 
     /**
      * 中序非递归遍历：
-     * 1.对于任意节点current，若该节点不为空则将该节点压栈，并将左子树节点置为current，重复此操作，直到current为空。
-     * 2.若左子树为空，栈顶节点出栈，访问节点后将该节点的右子树置为current
-     * 3.重复1、2步操作，直到current为空且栈内节点为空
+     * 1.对于任意结点 curNode，若该结点不为空则将该结点压栈，并将左子树结点置为 curNode，重复此操作，直到 curNode 为空。
+     * 2.若左子树为空，栈顶结点出栈，访问结点后将该结点的右子树置为 curNode
+     * 3.重复1、2步操作，直到 curNode 为空且栈内结点为空
      */
     @Override
     public void inOrderByStack() {
-        LinkStack<TreeNode> stack = new LinkStack<>();
+        LinkStack<TreeNode> stack = new LinkStack<TreeNode>();
         TreeNode curNode = root;
         while (curNode != null || !stack.isEmpty()){
             while (curNode != null){
@@ -142,13 +145,13 @@ public class LinkedBinaryTree<T> implements BinaryTree {
 
     /**
      * 后序非递归遍历：
-     * 1.对于任意节点current，若该节点不为空则访问该节点后再将节点压栈，并将左子树节点置为current，重复此操作，直到current为空。
-     * 2.若左子树为空，取栈顶节点的右子树，如果右子树为空或右子树刚访问过，则访问该节点，并将preNode置为该节点
-     * 3.重复1、2步操作，直到current为空且栈内节点为空。
+     * 1.对于任意结点curNode，若该结点不为空则访问该结点后再将结点压栈，并将左子树结点置为 curNode，重复此操作，直到 curNode 为空。
+     * 2.若左子树为空，取栈顶结点的右子树，如果右子树为空或右子树刚访问过，则访问该结点，并将preNode置为该结点
+     * 3.重复1、2步操作，直到 curNode 为空且栈内结点为空。
      */
     @Override
     public void postOrderByStack() {
-        LinkStack<TreeNode> stack = new LinkStack<>();
+        LinkStack<TreeNode> stack = new LinkStack<TreeNode>();
         TreeNode curNode = root;
         TreeNode preNode = null;
         while (curNode != null || !stack.isEmpty()){
@@ -170,9 +173,28 @@ public class LinkedBinaryTree<T> implements BinaryTree {
         System.out.println();
     }
 
+    /**
+     * 层次遍历：
+     * 1.对于任意结点 curNode，先把该结点放入队列中
+     * 2.从队中拿出结点，如果该结点的左右结点不为空，就把左右结点加入到队列中
+     * 3.重复1、2步操作，直到 curNode 为空且队列内节结点为空。
+     */
     @Override
     public void levelOrderByStack() {
-
+        LinkQueue<TreeNode> queue = new LinkQueue<TreeNode>();
+        TreeNode curNode;
+        queue.add(root);
+        while(!queue.isEmpty()){
+            curNode = queue.peek();
+            queue.poll();
+            System.out.print(curNode.getData() + " ");
+            if (curNode.getLeftChild()!=null){
+                queue.add(curNode.getLeftChild());
+            }
+            if (curNode.getRightChild()!=null){
+                queue.add(curNode.getRightChild());
+            }
+        }
     }
 
 

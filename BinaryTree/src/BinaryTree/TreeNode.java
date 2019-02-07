@@ -1,4 +1,4 @@
-package BinaryTree.linked;
+package BinaryTree;
 
 /**
  * @Author: cuizhe
@@ -9,6 +9,12 @@ public class TreeNode<T> {
     private T data;//二叉链表的值
     private TreeNode leftChild;//左子树
     private TreeNode rightChild;//右子树
+
+    public TreeNode(T data) {
+        this.data = data;
+        this.leftChild = null;
+        this.rightChild = null;
+    }
 
     public TreeNode(T data, TreeNode leftChild, TreeNode rightChild) {
         this.data = data;

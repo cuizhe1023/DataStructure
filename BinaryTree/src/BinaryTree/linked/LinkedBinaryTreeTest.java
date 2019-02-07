@@ -1,5 +1,7 @@
 package BinaryTree.linked;
 
+import BinaryTree.TreeNode;
+
 /**
  * @Author: cuizhe
  * @Date: 2019/1/24 22:45
@@ -17,13 +19,13 @@ public class LinkedBinaryTreeTest {
          *                 \
          *                  7
          */
-        TreeNode<Integer> node5 = new TreeNode<>(5,null,null);
-        TreeNode<Integer> node4 = new TreeNode<>(4,null,node5);
-        TreeNode<Integer> node7 = new TreeNode<>(7,null,null);
-        TreeNode<Integer> node6 = new TreeNode<>(6,null,node7);
-        TreeNode<Integer> node3 = new TreeNode<>(3,null,null);
-        TreeNode<Integer> node2 = new TreeNode<>(2,node3,node6);
-        TreeNode<Integer> node1 = new TreeNode<>(1,node4,node2);
+        TreeNode<Integer> node5 = new TreeNode<Integer>(5,null,null);
+        TreeNode<Integer> node4 = new TreeNode<Integer>(4,null,node5);
+        TreeNode<Integer> node7 = new TreeNode<Integer>(7,null,null);
+        TreeNode<Integer> node6 = new TreeNode<Integer>(6,null,node7);
+        TreeNode<Integer> node3 = new TreeNode<Integer>(3,null,null);
+        TreeNode<Integer> node2 = new TreeNode<Integer>(2,node3,node6);
+        TreeNode<Integer> node1 = new TreeNode<Integer>(1,node4,node2);
 
         LinkedBinaryTree<Integer> binaryTree = new LinkedBinaryTree<>();
         System.out.println("判断二叉树是否为空：" + binaryTree.isEmpty());

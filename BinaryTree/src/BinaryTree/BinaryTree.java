@@ -1,7 +1,5 @@
 package BinaryTree;
 
-import BinaryTree.linked.TreeNode;
-
 /**
  * 二叉树接口
  * 可以有不同的实现方式，每种实现方式可以使用不同的存储结构，比如顺序，链式等。

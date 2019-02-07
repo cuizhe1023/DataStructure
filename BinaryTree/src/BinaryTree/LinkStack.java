@@ -1,4 +1,4 @@
-package BinaryTree.linked;
+package BinaryTree;
 
 /**
  * @Author: cuizhe
