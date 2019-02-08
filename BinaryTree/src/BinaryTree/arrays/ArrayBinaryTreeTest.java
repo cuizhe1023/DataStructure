@@ -1,7 +1,5 @@
 package BinaryTree.arrays;
 
-import BinaryTree.TreeNode;
-
 /**
  * @Author: cuizhe
  * @Date: 2019/1/24 22:44
@@ -42,6 +40,18 @@ public class ArrayBinaryTreeTest {
 
         System.out.println("层次遍历：");//1425367
         arrayTree.levelOrderByStack();
+
+        System.out.println("树的高度为：");
+        System.out.println(arrayTree.getHeight());
+
+        System.out.println("树的结点数：");
+        System.out.println(arrayTree.size());
+
+        System.out.println("查找数据为2的结点：");
+        System.out.println(arrayTree.findKey(2));
+
+        System.out.println("查找数据为13的结点：");
+        System.out.println(arrayTree.findKey(13));
     }
 
 }

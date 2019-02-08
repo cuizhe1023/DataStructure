@@ -31,17 +31,55 @@ public class LinkedBinaryTree<T> implements BinaryTree{
 
     @Override
     public int size() {
-        return 0;
+        return size(root);
+    }
+
+    private int size(TreeNode treeNode) {
+        if (treeNode==null){
+            return 0;
+        }else {
+            int left = size(treeNode.getLeftChild());
+            int right = size(treeNode.getRightChild());
+            return left+right+1;
+        }
     }
 
     @Override
     public int getHeight() {
-        return 0;
+        return getHeight(root);
+    }
+
+    public int getHeight(TreeNode treeNode){
+        if (treeNode == null){
+            return 0;
+        }
+        int left = getHeight(treeNode.getLeftChild());
+        int right = getHeight(treeNode.getRightChild());
+        return left>right?(left+1):(right+1);
     }
 
     @Override
     public TreeNode findKey(Object data) {
-        return null;
+        return findKey(data,root);
+    }
+
+    private TreeNode findKey(Object o,TreeNode treeNode){
+        if (treeNode==null){
+            return null;
+        }
+        if (treeNode!=null && treeNode.getData()==o){
+            return treeNode;
+        }else {
+            TreeNode left = findKey(o,treeNode.getLeftChild());
+            TreeNode right = findKey(o,treeNode.getRightChild());
+            if (left!=null&&left.getData()==o){
+                return left;
+            }
+            if (right!=null&&right.getData()==o){
+                return right;
+            }
+            return null;
+        }
     }
 
     @Override
@@ -195,7 +233,6 @@ public class LinkedBinaryTree<T> implements BinaryTree{
                 queue.add(curNode.getRightChild());
             }
         }
+        System.out.println();
     }
-
-
 }

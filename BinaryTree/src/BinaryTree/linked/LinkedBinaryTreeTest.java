@@ -48,5 +48,17 @@ public class LinkedBinaryTreeTest {
 
         System.out.println("层次遍历：");//1425367
         binaryTree.levelOrderByStack();
+
+        System.out.println("树的高度为：");
+        System.out.println(binaryTree.getHeight());
+
+        System.out.println("树的结点数：");
+        System.out.println(binaryTree.size());
+
+        System.out.println("查找数据为2的结点");
+        System.out.println(binaryTree.findKey(2));
+
+        System.out.println("查找数据为13的结点");
+        System.out.println(binaryTree.findKey(13));
     }
 }
