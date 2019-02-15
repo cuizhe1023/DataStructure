@@ -54,6 +54,16 @@ public class BinarySearchTreeTest {
         System.out.println("查找数据为13的结点：");
         System.out.println(binarySearchTree.findKey(13));
 
+        System.out.println("层次遍历：");//8,3,10,1,6,14,4,7,13
+        binarySearchTree.levelOrderByStack();
+        System.out.println("中序遍历：");//1,3,4,6,7,8,10,13,14
+        binarySearchTree.inOrderTraverse();
+
+        binarySearchTree.remove(3);
+        binarySearchTree.levelOrderByStack();
+
+        System.out.println("中序遍历：");//1,3,4,6,7,8,10,13,14
+        binarySearchTree.inOrderTraverse();
     }
 
 }

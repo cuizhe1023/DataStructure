@@ -56,8 +56,112 @@ public class BinarySearchTree{
         }
     }
 
+    public void remove(Integer data){
+        Node delNode = root;//需要删除的结点
+        Node parent = null;//删除结点的父节点
+        boolean isLeftChild = true;//判断是左结点还是右结点
+
+        //确定父节点以及确定是父结点的左结点还是右结点
+        while (true){
+            if (data == delNode.getData()){
+                break;
+            }else if (data<delNode.getData()){
+                isLeftChild = true;
+                parent = delNode;
+                delNode = delNode.getLeftChild();
+            }else if (data>delNode.getData()){
+                isLeftChild = false;
+                parent = delNode;
+                delNode = delNode.getRightChild();
+            }
+            if (delNode == null){
+                System.out.println("结点不存在");
+                return;
+            }
+        }
+
+        //分情况考虑
+        //1.要删除的结点是叶子结点
+        if (delNode.getLeftChild()==null && delNode.getRightChild()==null){
+            if (delNode==root){
+                delNode = null;
+            }else {
+                //如果该结点是父节点的左结点,将父节点的左结点置为NULL;否则，将右结点置为NULL
+                if (isLeftChild){
+                    parent.setLeftChild(null);
+                }else {
+                    parent.setRightChild(null);
+                }
+            }
+        }else if (delNode.getRightChild() == null){
+            //2.需要删除的结点有一个子结点，且该子节点为左子结点
+            if (delNode==root){
+                //如果该结点为根节点，将根节点的左子结点变为根
+                setRoot(delNode.getLeftChild());
+            }else {
+                if (isLeftChild){
+                    //如果该结点是父结点的左子结点，将该结点的左子结点变为父节点的左子结点
+                    parent.setLeftChild(delNode.getLeftChild());
+                }else {
+                    //如果该结点是父结点的右结点，将该结点的左子结点变为父节点的右子结点
+                    parent.setRightChild(delNode.getLeftChild());
+                }
+            }
+        }else if (delNode.getLeftChild() == null){
+            //2.需要删除的结点有一个子结点，且该子结点为右子结点
+            if (delNode==root){
+                //如果该结点为根节点，将根节点的右子结点变为根
+                setRoot(delNode.getRightChild());
+            }else {
+                if (isLeftChild){
+                    //如果该结点是父结点的左子结点，将该结点的右子结点变为父节点的左子结点
+                    parent.setLeftChild(delNode.getRightChild());
+                }else {
+                    //如果该结点是父结点的右子结点，将该结点的右子结点变为父节点的右子结点
+                    parent.setRightChild(delNode.getRightChild());
+                }
+            }
+        }else {
+            //3.需要删除的节点有两个子结点，需要寻找该结点的后续结点替代删除结点
+            Node next = getNext(delNode);
+            //如果该结点为根节点，将后继结点变为根节点，并将根节点的左子结点变为后继结点的左子结点
+            if (delNode==root){
+                setRoot(next);
+            }else {
+                if (isLeftChild){
+                    parent.setLeftChild(next);
+                }else {
+                    parent.setRightChild(next);
+                }
+            }
+        }
+        return ;
+    }
+
+    private Node getNext(Node delNode) {
+        Node next = delNode;
+        Node nextParent = null;
+        Node curNode = delNode.getRightChild();
+
+        while (curNode!=null){
+            nextParent = next;
+            next = curNode;
+            curNode = curNode.getLeftChild();
+        }
+        //如果后继结点不是删除结点的右子结点时
+        if (next != delNode.getRightChild()){
+            //要将后继结点的右子结点指向后继结点的父节点的左子结点
+            nextParent.setLeftChild(next.getRightChild());
+            //并将删除结点的右子结点指向后继结点的右子结点
+            next.setRightChild(delNode.getRightChild());
+        }
+        //任何情况下，都需要将删除结点的左子结点指向后继结点的左子结点
+        next.setLeftChild(delNode.getLeftChild());
+        return next;
+    }
+
     public boolean isEmpty(){
-        return root == null;
+        return root==null;
     }
 
     public int size() {

@@ -147,7 +147,7 @@ public class AVLTree {
         if (data==null){
             throw new RuntimeException("data can\'t not be null ");
         }else {
-
+            remove(data,root);
         }
     }
 
