@@ -138,7 +138,7 @@ public class AVLTree {
                     avlNode = R_Rotate(avlNode);
                 }
             }
-        }else;
+        }
         avlNode.setHeight(Math.max(height(avlNode.getLeftChild()),height(avlNode.getRightChild()))+1);
         return avlNode;
     }
@@ -151,9 +151,127 @@ public class AVLTree {
         }
     }
 
-    public AVLNode remove(Integer data,AVLNode avlNode){
-
+    private AVLNode remove(Integer data,AVLNode avlNode){
+        if (avlNode==null){
+            return null;
+        }
+        //从左子树查找要进行删除的元素
+        if (data<avlNode.getData()){
+            avlNode.setLeftChild(remove(data,avlNode.getLeftChild()));
+            if (height(avlNode.getRightChild())-height(avlNode.getLeftChild())==2){
+                AVLNode curNode = avlNode.getRightChild();
+                //判断需要进行那种旋转
+                if (height(curNode.getLeftChild())>height(curNode.getRightChild())){
+                    //RL
+                    avlNode=R_L_Rotate(avlNode);
+                }else {
+                    //RR
+                    avlNode=R_Rotate(avlNode);
+                }
+            }
+        }else if (data> avlNode.getData()){
+            //从右子树查找要进行删除的元素
+            avlNode.setRightChild(remove(data,avlNode.getRightChild()));
+            if (height(avlNode.getLeftChild())-height(avlNode.getRightChild())==2){
+                AVLNode curNode = avlNode.getLeftChild();
+                //判断需要进行那种旋转
+                if (height(curNode.getRightChild())>height(curNode.getLeftChild())){
+                    //LR
+                    avlNode=L_R_Rotate(avlNode);
+                }else {
+                    //LL
+                    avlNode=L_Rotate(avlNode);
+                }
+            }
+        }else if (avlNode.getRightChild()!=null && avlNode.getLeftChild()!=null){
+            //有两个子结点，需要寻找替换的结点
+            avlNode.setData(findMin(avlNode.getRightChild()).getData());
+            //移除被替换的节点
+            avlNode.setRightChild(remove(avlNode.getData(),avlNode.getRightChild()));
+        }else {
+            //只有一个孩子，或者是叶子结点的情况
+            avlNode = (avlNode.getLeftChild()!=null)?avlNode.getLeftChild():avlNode.getRightChild();
+        }
+        if (avlNode!=null){
+            //更新高度
+            avlNode.setHeight(Math.max(height(avlNode.getLeftChild()),height(avlNode.getRightChild()))+1);
+        }
         return avlNode;
+    }
+
+//    private AVLNode remove(Integer data,AVLNode p){
+//
+//        if(p ==null)
+//            return null;
+//
+//        int result=data.compareTo(p.data);
+//
+//        //从左子树查找需要删除的元素
+//        if(result<0){
+//            p.leftChild=remove(data,p.getLeftChild());
+//
+//            //检测是否平衡
+//            if(height(p.rightChild)-height(p.leftChild)==2){
+//                AVLNode currentNode=p.rightChild;
+//                //判断需要那种旋转
+//                if(height(currentNode.leftChild)>height(currentNode.rightChild)){
+//                    //RL
+//                    p=R_L_Rotate(p);
+//                }else{
+//                    //RR
+//                    p=R_Rotate(p);
+//                }
+//            }
+//
+//        }
+//        //从右子树查找需要删除的元素
+//        else if(result>0){
+//            p.rightChild=remove(data,p.rightChild);
+//            //检测是否平衡
+//            if(height(p.leftChild)-height(p.rightChild)==2){
+//                AVLNode currentNode=p.leftChild;
+//                //判断需要那种旋转
+//                if(height(currentNode.rightChild)>height(currentNode.leftChild)){
+//                    //LR
+//                    p=L_R_Rotate(p);
+//                }else{
+//                    //LL
+//                    p=L_Rotate(p);
+//                }
+//            }
+//        }
+//        //已找到需要删除的元素,并且要删除的结点拥有两个子节点
+//        else if(p.rightChild!=null&&p.leftChild!=null){
+//
+//            //寻找替换结点
+//            p.data=findMin(p.rightChild).data;
+//
+//            //移除用于替换的结点
+//            p.rightChild = remove( p.data, p.rightChild );
+//        }
+//        else {
+//            //只有一个孩子结点或者只是叶子结点的情况
+//            p=(p.leftChild!=null)? p.leftChild:p.rightChild;
+//        }
+//
+//        //更新高度值
+//        if(p!=null)
+//            p.height = Math.max( height( p.leftChild ), height( p.rightChild ) ) + 1;
+//        return p;
+//    }
+
+
+    /**
+     * 查找最小值结点
+     * @param avlNode 查找 avlNode 下的最小值的结点
+     * @return
+     */
+    private AVLNode findMin(AVLNode avlNode) {
+        if (avlNode==null)//结束条件
+            return null;
+        else if (avlNode.getLeftChild()==null)//如果没有左结点,那么t就是最小的
+            return avlNode;
+        return findMin(avlNode.getLeftChild());
     }
 
     public boolean isEmpty(){
