@@ -1,5 +1,7 @@
 package BinaryTree.AVLTree;
 
+import java.util.LinkedList;
+
 /**
  * @Author: cuizhe
  * @Date: 2019/2/12 21:31
@@ -21,7 +23,7 @@ public class AVLTree {
     }
 
     public class AVLNode {
-        private int data;
+        private Integer data;
         private AVLNode leftChild;
         private AVLNode rightChild;
         private int height;
@@ -30,7 +32,7 @@ public class AVLTree {
             this.data = data;
         }
 
-        public int getData() {
+        public Integer getData() {
             return data;
         }
 
@@ -199,71 +201,9 @@ public class AVLTree {
         return avlNode;
     }
 
-//    private AVLNode remove(Integer data,AVLNode p){
-//
-//        if(p ==null)
-//            return null;
-//
-//        int result=data.compareTo(p.data);
-//
-//        //从左子树查找需要删除的元素
-//        if(result<0){
-//            p.leftChild=remove(data,p.getLeftChild());
-//
-//            //检测是否平衡
-//            if(height(p.rightChild)-height(p.leftChild)==2){
-//                AVLNode currentNode=p.rightChild;
-//                //判断需要那种旋转
-//                if(height(currentNode.leftChild)>height(currentNode.rightChild)){
-//                    //RL
-//                    p=R_L_Rotate(p);
-//                }else{
-//                    //RR
-//                    p=R_Rotate(p);
-//                }
-//            }
-//
-//        }
-//        //从右子树查找需要删除的元素
-//        else if(result>0){
-//            p.rightChild=remove(data,p.rightChild);
-//            //检测是否平衡
-//            if(height(p.leftChild)-height(p.rightChild)==2){
-//                AVLNode currentNode=p.leftChild;
-//                //判断需要那种旋转
-//                if(height(currentNode.rightChild)>height(currentNode.leftChild)){
-//                    //LR
-//                    p=L_R_Rotate(p);
-//                }else{
-//                    //LL
-//                    p=L_Rotate(p);
-//                }
-//            }
-//        }
-//        //已找到需要删除的元素,并且要删除的结点拥有两个子节点
-//        else if(p.rightChild!=null&&p.leftChild!=null){
-//
-//            //寻找替换结点
-//            p.data=findMin(p.rightChild).data;
-//
-//            //移除用于替换的结点
-//            p.rightChild = remove( p.data, p.rightChild );
-//        }
-//        else {
-//            //只有一个孩子结点或者只是叶子结点的情况
-//            p=(p.leftChild!=null)? p.leftChild:p.rightChild;
-//        }
-//
-//        //更新高度值
-//        if(p!=null)
-//            p.height = Math.max( height( p.leftChild ), height( p.rightChild ) ) + 1;
-//        return p;
-//    }
-
-
     /**
      * 查找最小值结点
-     * @param avlNode 查找 avlNode 下的最小值的结点
+     * @param avlNode 查找以 avlNode 为根下的最小值的结点
      * @return
      */
     private AVLNode findMin(AVLNode avlNode) {
@@ -321,5 +261,82 @@ public class AVLTree {
             postOrderTraverse(treeNode.getRightChild());
             System.out.print(treeNode.getData() + " ");
         }
+    }
+    //非递归前中后，
+    public void preOrderByStack(){
+        AVLNode curNode = root;
+        LinkedList<AVLNode> stack = new LinkedList<>();
+        while (curNode!=null || !stack.isEmpty()){
+            while (curNode!=null && curNode.getData()!=null){
+                stack.push(curNode);
+                System.out.print(curNode.getData()+" ");
+                curNode = curNode.getLeftChild();
+            }
+            if (!stack.isEmpty()){
+                curNode = stack.pop();
+                curNode = curNode.getRightChild();
+            }
+        }
+        System.out.println();
+    }
+
+    public void inOrderByStack(){
+        AVLNode curNode = root;
+        LinkedList<AVLNode> stack = new LinkedList<>();
+        while (curNode!=null || !stack.isEmpty()){
+            while (curNode!=null && curNode.getData()!=null){
+                stack.push(curNode);
+                curNode = curNode.getLeftChild();
+            }
+            if (!stack.isEmpty()){
+                curNode = stack.pop();
+                System.out.print(curNode.getData()+" ");
+                curNode = curNode.getRightChild();
+            }
+        }
+        System.out.println();
+    }
+
+    public void postOrderByStack(){
+        AVLNode curNode = root;
+        AVLNode preNode = null;
+        LinkedList<AVLNode> stack = new LinkedList<>();
+        while (curNode!=null || !stack.isEmpty()){
+            while (curNode!=null && curNode.getData()!=null){
+                stack.push(curNode);
+                curNode = curNode.getLeftChild();
+            }
+            if (!stack.isEmpty()){
+                curNode = stack.peek().getRightChild();
+                if (curNode==null || curNode==preNode){
+                    curNode = stack.pop();
+                    if (curNode.getData()!=null){
+                        System.out.print(curNode.getData()+" ");
+                    }
+                    preNode = curNode;
+                    curNode = null;
+                }
+            }
+        }
+        System.out.println();
+    }
+    //层次遍历
+    public void levelOrderByQueue(){
+        AVLNode curNode = root;
+        LinkedList<AVLNode> queue = new LinkedList<>();
+        queue.add(curNode);
+        while (!queue.isEmpty()){
+            curNode = queue.poll();
+            if (curNode.getData()!=null){
+                System.out.print(curNode.getData()+" ");
+            }
+            if (curNode.getLeftChild()!=null){
+                queue.add(curNode.getLeftChild());
+            }
+            if (curNode.getRightChild()!=null){
+                queue.add(curNode.getRightChild());
+            }
+        }
+        System.out.println();
     }
 }
