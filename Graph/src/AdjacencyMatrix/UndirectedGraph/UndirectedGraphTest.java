@@ -36,7 +36,7 @@ public class UndirectedGraphTest {
         System.out.println("深度优先遍历:");
         graph.dfs();
         System.out.println("广度优先遍历:");
-
-        }
+        graph.bfs();
+    }
 
 }

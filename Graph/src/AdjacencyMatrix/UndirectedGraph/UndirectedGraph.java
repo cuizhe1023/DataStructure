@@ -172,10 +172,6 @@ public class UndirectedGraph {
 
     public void dfs(){
         boolean[] isVisited = new boolean[getNumOfVertex()];
-        for (boolean a :
-                isVisited) {
-            a = false;
-        }
         for (int i = 0; i < getNumOfVertex(); i++) {
             if (!isVisited[i]){
                 dfs(isVisited,i);
@@ -184,11 +180,35 @@ public class UndirectedGraph {
         System.out.println();
     }
 
-
-
-
     public void bfs(){
+        boolean[] isVisited = new boolean[getNumOfVertex()];
+        for (int i = 0; i < getNumOfVertex(); i++) {
+            if (!isVisited[i]){
+                bfs(isVisited,i);
+            }
+        }
+        System.out.println();
+    }
 
+    public void bfs(boolean[] isVisited,int i){
+        LinkedList<Integer> queue = new LinkedList<>();
+        int u,w;
+        System.out.print(vertexList.get(i)+" ");
+        isVisited[i] = true;
+        queue.add(i);
+        w = getFirstNeighbor(i);
+        while (!queue.isEmpty()){
+            u = queue.pop();
+            w = getFirstNeighbor(i);
+            while (w!=-1){
+                if (!isVisited[i]){
+                    System.out.print(vertexList.get(i)+" ");
+                    isVisited[i] = true;
+                    queue.add(i);
+                }
+                w = getNextNeighbor(u,w);
+            }
+        }
     }
 
 }
