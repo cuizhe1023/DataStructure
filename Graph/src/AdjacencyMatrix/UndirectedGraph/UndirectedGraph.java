@@ -158,7 +158,7 @@ public class UndirectedGraph {
         return -1;
     }
 
-    public void dfs(boolean[] visited,int i){
+    private void dfs(boolean[] visited,int i){
         System.out.print(getValueByIndex(i)+" ");
         visited[i] = true;
         int w = getFirstNeighbor(i);
@@ -180,17 +180,7 @@ public class UndirectedGraph {
         System.out.println();
     }
 
-    public void bfs(){
-        boolean[] isVisited = new boolean[getNumOfVertex()];
-        for (int i = 0; i < getNumOfVertex(); i++) {
-            if (!isVisited[i]){
-                bfs(isVisited,i);
-            }
-        }
-        System.out.println();
-    }
-
-    public void bfs(boolean[] isVisited,int i){
+    private void bfs(boolean[] isVisited,int i){
         LinkedList<Integer> queue = new LinkedList<>();
         int u,w;
         System.out.print(vertexList.get(i)+" ");
@@ -209,6 +199,31 @@ public class UndirectedGraph {
                 w = getNextNeighbor(u,w);
             }
         }
+    }
+
+    public void bfs(){
+        boolean[] isVisited = new boolean[getNumOfVertex()];
+        for (int i = 0; i < getNumOfVertex(); i++) {
+            if (!isVisited[i]){
+                bfs(isVisited,i);
+            }
+        }
+        System.out.println();
+    }
+
+
+    public boolean judgeLink(String str1,String str2){
+        int index1 = 0,index2 = 0;
+        for (int i = 0; i < getNumOfVertex(); i++) {
+            if (str1.equals(vertexList.get(i))){
+                index1 = i;
+            }
+            if (str2.equals(vertexList.get(i))){
+                index2 = i;
+            }
+        }
+
+        return true;
     }
 
 }
